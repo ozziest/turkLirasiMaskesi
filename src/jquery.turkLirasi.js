@@ -97,7 +97,7 @@ $.fn.turkLirasi = function (options) {
     var setDefaultValue = function(element) 
     {
         // Auto Fill işlemi kontrol edilir.
-        if (element.data('options').autoFillDecimal) {
+        if (element.data('options').allowedDecimal && element.data('options').autoFillDecimal) {
             // Artık sayı virgüllü olacağından değer set edilir.
             setDecimalPoint(element, true);
             // Veriler yazılır
@@ -135,23 +135,23 @@ $.fn.turkLirasi = function (options) {
         value = value.replace('.', ',');
         // Değer atanır.
         element.data('value', value);           
+        // Sayı bir daha parçalanır.
+        sections = value.split(',');
         // Sayı formatlı mı yazdırılacak?
         if (element.data('options').formatted) {
-            // Sayı bir daha parçalanır.
-            sections = value.split(',');
             // Sayı formatlanır
             var visualValue = number_format(sections[0], 0, ',', '.');
-            // Ondalık kısım var mı_
-            if (typeof sections[1] != 'undefined') {
-                setDecimalPoint(element, true);
-                // Ondalık kısım da birleştirilir
-                visualValue += ',' + sections[1];
-            } else {
-                setDecimalPoint(element, false);                
-            }
         } else {
             // Sayı olduğu gibi yazılır.
-            var visualValue = value;
+            var visualValue = value;                
+        }
+        // Ondalık kısım var mı_
+        if (typeof sections[1] != 'undefined') {
+            setDecimalPoint(element, true);
+            // Ondalık kısım da birleştirilir
+            visualValue += ',' + sections[1];
+        } else {
+            setDecimalPoint(element, false);                
         }
         element.data('visualValue', visualValue);
         // Görünen değer yazılır.
@@ -231,7 +231,7 @@ $.fn.turkLirasi = function (options) {
         */
         $(this).focusout(function() {
             // Auto Fill işlemi kontrol edilir.
-            if (activeElement.data('options').autoFillDecimal) {
+            if (activeElement.data('options').allowedDecimal && activeElement.data('options').autoFillDecimal) {
                 // Değer var mı kontrol edilir. Değer yoksa işlem yapılmaz.
                 if (activeElement.data('value') != '') {
                     // Değer parçalanırç
