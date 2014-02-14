@@ -96,11 +96,22 @@ $.fn.turkLirasi = function (options) {
     */
     var setDefaultValue = function(element) 
     {
-        element.data('value', 0);
-        element.data('visualValue', '0');
-        setDecimalPoint(element, false);
-        // Görünen değer yazılır.
-        element.val(element.data('visualValue') + getSuffix(element.data('options').suffix));                    
+        // Auto Fill işlemi kontrol edilir.
+        if (element.data('options').autoFillDecimal) {
+            // Artık sayı virgüllü olacağından değer set edilir.
+            setDecimalPoint(element, true);
+            // Veriler yazılır
+            element.data('value', '0');
+            element.data('visualValue', '0,00' );
+            element.val(element.data('visualValue') + getSuffix(element.data('options').suffix));                    
+        } else {
+            element.data('value', 0);
+            element.data('visualValue', '0');
+            setDecimalPoint(element, false);
+            // Görünen değer yazılır.
+            element.val(element.data('visualValue') + getSuffix(element.data('options').suffix));                                
+        }
+
     };
 
     var methodDefined = function(element, method)
@@ -157,7 +168,9 @@ $.fn.turkLirasi = function (options) {
         if (element.data('selectAll') == true) {
             setDefaultValue(element);
             element.data('selectAll', false);
+            return true;
         }
+        return false;
     };
 
     /**
@@ -217,7 +230,6 @@ $.fn.turkLirasi = function (options) {
         * Focus Out
         */
         $(this).focusout(function() {
-
             // Auto Fill işlemi kontrol edilir.
             if (activeElement.data('options').autoFillDecimal) {
                 // Değer var mı kontrol edilir. Değer yoksa işlem yapılmaz.
@@ -246,7 +258,7 @@ $.fn.turkLirasi = function (options) {
                     // Veriler yazılır
                     activeElement.data('value', activeElement.data('value') + fillText );
                     activeElement.data('visualValue', activeElement.data('visualValue') + fillText );
-                    activeElement.val(activeElement.data('visualValue'));                    
+                    activeElement.val(activeElement.data('visualValue')  + getSuffix(activeElement.data('options').suffix));                    
                 }
             }
 
@@ -310,7 +322,9 @@ $.fn.turkLirasi = function (options) {
                 * Backspace tuşu
                 */
                 // Tüm metin seçiliyse metin silinir.
-                checkSelectAll(activeElement);
+                if (checkSelectAll(activeElement)) {
+                    return false;
+                }
                 // Gerçek değer öğrenilir.
                 var realValue = checkValue(activeElement.data('value'));
                 // Silinmeye çalışılan değer decimal point mi?
@@ -351,7 +365,7 @@ $.fn.turkLirasi = function (options) {
                 // Şuana kadar yazılan değer ondalık dilim içeriyor mu?
                 if (getDecimalPoint(activeElement)) {
                     // Ondalık dilimin uzunluğu, izin verilen kadar mı?
-                    if (sections[1].length == options.maxDecimalCount) {
+                    if (typeof sections[1] != 'undefined' && sections[1].length == options.maxDecimalCount) {
                         // İzin verilenden daha fazla sayı ondalık yazılamaz.
                         return false;
                     }
