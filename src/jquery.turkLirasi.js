@@ -274,6 +274,7 @@ $.fn.turkLirasi = function (options) {
         * Javascript ile sonradan değer düzenleme bölümü.
         */
         $(this).on('setAgain', function(event, newValue) {
+            newValue = '' + newValue;
             newValue = newValue.replace(',', '');
             setValue($(this), newValue);
         });
