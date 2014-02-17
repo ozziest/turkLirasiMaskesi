@@ -155,7 +155,8 @@ $.fn.turkLirasi = function (options) {
         }
         element.data('visualValue', visualValue);
         // Görünen değer yazılır.
-        element.val(element.data('visualValue') + getSuffix(element.data('options').suffix));                    
+        element.val(element.data('visualValue') + getSuffix(element.data('options').suffix));   
+        log(element, element.data());
         // Herhangi bir set sonrası parametre set edilmiş mi kontrol edilir.
         if (typeof initialization == 'undefined' && methodDefined(element, '_eventAfterSet')) {
             // Olay tetiklenir.
@@ -267,6 +268,14 @@ $.fn.turkLirasi = function (options) {
                 // Olay tetiklenir.
                 activeElement.trigger('change', activeElement.data('options')._eventFocusOut);                               
             }
+        });
+        
+        /**
+        * Javascript ile sonradan değer düzenleme bölümü.
+        */
+        $(this).on('setAgain', function(event, newValue) {
+            newValue = newValue.replace(',', '');
+            setValue($(this), newValue);
         });
 
         // Keydown fonksiyonu tanımlanır.

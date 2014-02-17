@@ -42,7 +42,15 @@ Opsiyonel olarak yapılabilecek ayarlar şu şekildedir;
  * `_eventAfterSet`: Her girilen rakamdan sonra çağırılacak fonksiyon ayarıdır. Varsayılan: false
  * `_eventFocusOut`: FocusOut olayından sonra çağırılacak fonksiyon ayarıdır. Varsayılan: false
 
+***
+### Metodlar:
 
+* `setAgain`: Çalışma anında javascript ile değer güncellenmek istenildiğinde kullanılır.
+	
+		<b>Kullanımı</b>
+		$('#inputName').trigger('setAgain', [newValue]);
+
+ 
 ***
 ### Önemli Notlar ve Geliştirme Planı
 
