@@ -47,7 +47,6 @@ Opsiyonel olarak yapılabilecek ayarlar şu şekildedir;
 
 * `setAgain`: Çalışma anında javascript ile değer güncellenmek istenildiğinde kullanılır.
 	
-		<b>Kullanımı</b>
 		$('#inputName').trigger('setAgain', [newValue]);
 
  
