@@ -46,7 +46,7 @@ test("Seçili Silme", function() {
 
 test("setAgain Methodu", function() {
 	input.trigger('click');
-	input.trigger('setAgain', [123.3]);
+	input.trigger('setAgain', ['123,3']);
 	input.trigger('focusout');
 	ok( input.val() == "123,30 TL", "JS ile değer güncelleme methodu test başarılı." );	
 });

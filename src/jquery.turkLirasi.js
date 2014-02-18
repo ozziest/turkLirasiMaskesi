@@ -276,6 +276,7 @@ $.fn.turkLirasi = function (options) {
         */
         $(this).on('setAgain', function(event, newValue) {
             // Veriler temizlenir.
+            newValue = '' + newValue;
             newValue = newValue.replace(/\./g,'').replace(',', '.');
             setValue($(this), newValue);
         });
