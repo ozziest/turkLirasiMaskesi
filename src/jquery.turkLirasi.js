@@ -98,13 +98,14 @@ $.fn.turkLirasi = function (options) {
     {
         // Auto Fill işlemi kontrol edilir.
         if (element.data('options').allowedDecimal && element.data('options').autoFillDecimal) {
-            // Artık sayı virgüllü olacağından değer set edilir.
-            setDecimalPoint(element, true);
             // Veriler yazılır
             element.data('value', '0');
-            element.data('visualValue', '0,00' );
+            element.data('visualValue', '0,00');
+            // Artık sayı virgüllü olacağından değer set edilir.
+            setDecimalPoint(element, true);
             element.val(element.data('visualValue') + getSuffix(element.data('options').suffix));                    
         } else {
+            // Veriler yazılır
             element.data('value', 0);
             element.data('visualValue', '0');
             setDecimalPoint(element, false);
@@ -234,7 +235,7 @@ $.fn.turkLirasi = function (options) {
             // Auto Fill işlemi kontrol edilir.
             if (activeElement.data('options').allowedDecimal && activeElement.data('options').autoFillDecimal) {
                 // Değer var mı kontrol edilir. Değer yoksa işlem yapılmaz.
-                if (activeElement.data('value') != '') {
+                if (activeElement.data('value') != '' && activeElement.data('value') != '0') {
                     // Değer parçalanırç
                     sections = activeElement.data('value').split(',');
                     // Virgüllü kısım var mı?
@@ -274,8 +275,8 @@ $.fn.turkLirasi = function (options) {
         * Javascript ile sonradan değer düzenleme bölümü.
         */
         $(this).on('setAgain', function(event, newValue) {
-            newValue = '' + newValue;
-            newValue = newValue.replace(',', '');
+            // Veriler temizlenir.
+            newValue = newValue.replace(/\./g,'').replace(',', '.');
             setValue($(this), newValue);
         });
 
