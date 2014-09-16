@@ -147,7 +147,7 @@ $.fn.turkLirasi = function (options) {
             var visualValue = value;                
         }
         // Ondalık kısım var mı_
-        if (typeof sections[1] != 'undefined') {
+        if (typeof sections[1] != 'undefined') {
             setDecimalPoint(element, true);
             // Ondalık kısım da birleştirilir
             visualValue += ',' + sections[1];
@@ -270,6 +270,13 @@ $.fn.turkLirasi = function (options) {
                 activeElement.trigger('change', activeElement.data('options')._eventFocusOut);                               
             }
         });
+
+        /**
+        * Focus
+        */
+        $(this).focus(function() {
+            $(this).trigger('click');
+        });
         
         /**
         * Javascript ile sonradan değer düzenleme bölümü.
@@ -298,7 +305,8 @@ $.fn.turkLirasi = function (options) {
             // Basılan tuş kaydedilir.
             var key = e.charCode || e.keyCode || 0;
             // Log işlemi yapılır.
-            log(activeElement, 'Pressed Key Code: #' + key);    
+            log(activeElement, 'Pressed Key Code: #' + key);  
+
             // Karakter Kodu Kontrolü
             if ((e.ctrlKey || e.metaKey) && key == 86) {
                 /**
@@ -318,7 +326,7 @@ $.fn.turkLirasi = function (options) {
                     setValue(activeElement, realValue);
                 }, 0);
                 return true;
-            } else if((e.ctrlKey || e.metaKey) && key == 67) {
+            } else if((e.ctrlKey || e.metaKey) && key == 67) {
                 /**
                 * Kopyala tuş kombinasyonu
                 */
@@ -384,7 +392,12 @@ $.fn.turkLirasi = function (options) {
                     }
                 }
                 // Basılan tuşun sayısal değeri ilave edilir.
-                realValue = realValue + String.fromCharCode(e.keyCode);
+                if (key >= 48 && key <= 57) {
+                    realValue = realValue + String.fromCharCode(e.keyCode);
+                } else {
+                    var values = {96: "0", 97: "1", 98: "2", 99: "3", 100: "4", 101: "5", 102: "6", 103: "7", 104: "8", 105: "9"};
+                    realValue = realValue + values[key];
+                }
                 // Değer kontrol edilir.
                 realValue = completeValue(realValue);
                 // Değer yazdırılır.
@@ -397,4 +410,5 @@ $.fn.turkLirasi = function (options) {
             return false;
         });
     });
+
 };  
