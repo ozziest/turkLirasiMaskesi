@@ -6,7 +6,7 @@ jQuery eklentisi olarak hazırlanan basit bir Türk Lirası giriş maskesi.
 ***
 ### Download
 
-Son versiyon(minified) için [tıklayınız](https://raw.github.com/ozguradem/maskTurkLirasi/master/dist/jquery.turkLirasi.min.js).
+Son versiyon(minified) için [tıklayınız](https://raw.githubusercontent.com/ozziest/turkLirasiMaskesi/master/dist/jquery.turkLirasi.min.js).
 
 ***
 ### Kullanımı
