@@ -364,7 +364,8 @@ $.fn.turkLirasi = function (options) {
                 setValue(activeElement, realValue);
                 // Log işlemi
                 log(activeElement, activeElement.data());
-            } else if (key >= 48 && key <= 57) {
+            } else if ( (key >= 48 && key <= 57) || 
+                        (key >= 96 && key <= 105) ) {
                 /**
                 * Sayısal Karakter
                 */
