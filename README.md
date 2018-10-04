@@ -3,6 +3,8 @@ jQuery TürkLirası İnput Maskesi
 
 jQuery eklentisi olarak hazırlanan basit bir Türk Lirası giriş maskesi.
 
+## Bu proje aktif bir şekilde geliştirilmiyor. Lütfen production ortamında kullanmayın. 
+
 ***
 ### Download
 
